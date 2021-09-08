@@ -21,11 +21,18 @@ class AddMovie extends React.Component {
     this.setState({
       [name]: value,
     });
-  }
+  };
+
+  objeto = () => {
+    const { title, subtitle, storyline, rating, imagePath, genre } = this.state;
+    const newObj = { title, subtitle, storyline, rating, imagePath, genre };
+    return newObj;
+  };
 
   buttonFunction = (event, onClick) => {
     event.preventDefault();
-    onClick();
+    const newMovie = this.objeto();
+    onClick(newMovie);
     this.setState({
       subtitle: '',
       title: '',

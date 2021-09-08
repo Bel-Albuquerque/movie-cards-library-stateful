@@ -11,6 +11,7 @@ class InputNumber extends React.Component {
       >
         {labelText}
         <input
+          id="rating"
           name={ Name }
           data-testid={ dataTest }
           type="number"
@@ -28,7 +29,7 @@ InputNumber.propTypes = {
   Name: PropTypes.string.isRequired,
   dataTest: PropTypes.string.isRequired,
   func: PropTypes.func.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
 export default InputNumber;
