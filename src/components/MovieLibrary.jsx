@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SearchBar from './SearchBar';
 import AddMovie from './AddMovie';
-import moviesData from '../data';
+import movies from '../data';
 import MovieList from './MovieList';
 
 class MovieLibrary extends Component {
@@ -11,7 +11,7 @@ class MovieLibrary extends Component {
       searchText: '',
       bookmarkedOnly: false,
       selectedGenre: '',
-      movies: moviesData,
+      movies: movies,
     };
   }
 
@@ -30,7 +30,7 @@ class MovieLibrary extends Component {
     this.condicaoFiltraBoolean(target, value);
     if (value === '' || value === false) {
       console.log('esse é o else');
-      return this.setState({ movies: moviesData });
+      return this.setState({ movies: movies });
     }
   }
 
@@ -53,7 +53,7 @@ class MovieLibrary extends Component {
   }
 
     filtroIncludes = (value) => {
-      const tmp = moviesData.filter(({ title, subtitle, storyline }) => (
+      const tmp = movies.filter(({ title, subtitle, storyline }) => (
         title.includes(value) || subtitle.includes(value) || storyline.includes(value)));
       this.setState({
         movies: tmp,
@@ -61,21 +61,22 @@ class MovieLibrary extends Component {
     }
 
     filtrar = (par, value) => {
-      const movieFilter = moviesData.filter((m) => m[par] === value);
+      const movieFilter = movies.filter((m) => m[par] === value);
       this.setState({
         movies: movieFilter,
       });
     }
 
     buttonAddMovie = (newMovie) => {
-      moviesData.push(newMovie);
+      movies.push(newMovie);
       this.setState({
-        movies: moviesData,
+        movies: movies,
       });
     }
 
     render() {
-      const { searchText, bookmarkedOnly, selectedGenre, movies } = this.state;
+      const { movies } = this.props;
+      const { searchText, bookmarkedOnly, selectedGenre } = this.state;
       return (
         <div>
           <h2> My awesome movie library </h2>
