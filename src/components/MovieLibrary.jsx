@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import SearchBar from './SearchBar';
 import AddMovie from './AddMovie';
-import movies from '../data';
 import MovieList from './MovieList';
 
 class MovieLibrary extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const { movies } = this.props;
     this.state = {
       searchText: '',
       bookmarkedOnly: false,
       selectedGenre: '',
-      movies: movies,
+      movies,
     };
   }
 
@@ -25,12 +26,13 @@ class MovieLibrary extends Component {
   }
 
   filtraTeste = (target, value) => {
+    const { movies } = this.state;
     this.condicaoFiltratext(target, value);
     this.condicaoFiltraSelect(target, value);
     this.condicaoFiltraBoolean(target, value);
     if (value === '' || value === false) {
       console.log('esse é o else');
-      return this.setState({ movies: movies });
+      return this.setState({ movies });
     }
   }
 
@@ -53,6 +55,7 @@ class MovieLibrary extends Component {
   }
 
     filtroIncludes = (value) => {
+      const { movies } = this.state;
       const tmp = movies.filter(({ title, subtitle, storyline }) => (
         title.includes(value) || subtitle.includes(value) || storyline.includes(value)));
       this.setState({
@@ -61,6 +64,7 @@ class MovieLibrary extends Component {
     }
 
     filtrar = (par, value) => {
+      const { movies } = this.state;
       const movieFilter = movies.filter((m) => m[par] === value);
       this.setState({
         movies: movieFilter,
@@ -68,15 +72,13 @@ class MovieLibrary extends Component {
     }
 
     buttonAddMovie = (newMovie) => {
+      const { movies } = this.state;
       movies.push(newMovie);
-      this.setState({
-        movies: movies,
-      });
+      this.setState({ movies });
     }
 
     render() {
-      const { movies } = this.props;
-      const { searchText, bookmarkedOnly, selectedGenre } = this.state;
+      const { searchText, bookmarkedOnly, selectedGenre, movies } = this.state;
       return (
         <div>
           <h2> My awesome movie library </h2>
@@ -94,5 +96,11 @@ class MovieLibrary extends Component {
       );
     }
 }
+
+MovieLibrary.propTypes = {
+  movies: PropTypes.arrayOf(
+    PropTypes.object,
+  ).isRequired,
+};
 
 export default MovieLibrary;
