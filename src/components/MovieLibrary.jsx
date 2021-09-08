@@ -73,8 +73,11 @@ class MovieLibrary extends Component {
 
     buttonAddMovie = (newMovie) => {
       const { movies } = this.state;
-      movies.push(newMovie);
-      this.setState({ movies });
+      const array = [];
+
+      movies.forEach((movie) => array.push(movie));
+      array.push(newMovie);
+      this.setState({ movies: array });
     }
 
     render() {
