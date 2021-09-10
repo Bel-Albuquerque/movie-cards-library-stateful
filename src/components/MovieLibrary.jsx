@@ -16,83 +16,83 @@ class MovieLibrary extends Component {
     };
   }
 
-  atualizaEstado = ({ target }) => {
+  atualizaState = ({ target }) => {
     const { name } = target;
     const value = (target.type === 'checkbox') ? target.checked : target.value;
     this.setState({ [name]: value });
-    this.filtraTeste(target, value);
+    this.atualizaMoviesList(target, value);
   }
 
-  filtraTeste = (target, value) => {
+  atualizaMoviesList = (target, value) => {
     const { movies } = this.props;
     this.condicaoFiltratext(target, value);
-    this.condicaoFiltraSelect(target, value);
-    this.condicaoFiltraBoolean(target, value);
+    this.condicaoFiltraGenre(target, value);
+    this.condicaoFiltraBookMarked(target, value);
     if (value === '' || value === false) {
       console.log('esse é o else');
       return this.setState({ movies });
     }
   }
 
-  condicaoFiltraBoolean = (target, value) => {
-    if (target.name === 'bookmarkedOnly' && value !== false) {
-      this.filtrar('bookmarked', value);
-    }
-  }
-
   condicaoFiltratext = (target, value) => {
     if (target.name === 'searchText' && value !== '') {
-      this.filtroIncludes(value);
+      this.filtraArrayTextIncludes(value);
     }
   }
 
-  condicaoFiltraSelect = (target, value) => {
+  condicaoFiltraGenre = (target, value) => {
     if (target.name === 'selectedGenre' && value !== '') {
-      this.filtrar('genre', value);
+      this.filtraArray('genre', value);
     }
   }
 
-    filtroIncludes = (value) => {
-      const { movies } = this.state;
-      const tmp = movies.filter(({ title, subtitle, storyline }) => (
-        title.includes(value) || subtitle.includes(value) || storyline.includes(value)));
-      this.setState({
-        movies: tmp,
-      });
+  condicaoFiltraBookMarked = (target, value) => {
+    if (target.name === 'bookmarkedOnly' && value !== false) {
+      this.filtraArray('bookmarked', value);
     }
+  }
 
-    filtrar = (par, value) => {
-      const { movies } = this.state;
-      const movieFilter = movies.filter((m) => m[par] === value);
-      this.setState({
-        movies: movieFilter,
-      });
-    }
+  filtraArrayTextIncludes = (value) => {
+    const { movies } = this.state;
+    const tmp = movies.filter(({ title, subtitle, storyline }) => (
+      title.includes(value) || subtitle.includes(value) || storyline.includes(value)));
+    this.setState({
+      movies: tmp,
+    });
+  }
 
-    buttonAddMovie = (newMovie) => {
-      const { movies } = this.state;
-      const array = [...movies, newMovie];
-      this.setState({ movies: array });
-    }
+  filtraArray = (par, value) => {
+    const { movies } = this.state;
+    const movieFilter = movies.filter((m) => m[par] === value);
+    this.setState({
+      movies: movieFilter,
+    });
+  }
 
-    render() {
-      const { searchText, bookmarkedOnly, selectedGenre, movies } = this.state;
-      return (
-        <div>
-          <h2> My awesome movie library </h2>
-          <SearchBar
-            searchText={ searchText }
-            onSearchTextChange={ this.atualizaEstado }
-            bookmarkedOnly={ bookmarkedOnly }
-            onBookmarkedChange={ this.atualizaEstado }
-            selectedGenre={ selectedGenre }
-            onSelectedGenreChange={ this.atualizaEstado }
-          />
-          <AddMovie onClick={ this.buttonAddMovie } />
-          <MovieList movies={ movies } />
-        </div>
-      );
-    }
+  buttonAddMovie = (newMovie) => {
+    const { movies } = this.state;
+    const array = [...movies, newMovie];
+    this.setState({ movies: array });
+  }
+
+  render() {
+    const { searchText, bookmarkedOnly, selectedGenre, movies } = this.state;
+    return (
+      <div>
+        <h2> My awesome movie library </h2>
+        <SearchBar
+          searchText={ searchText }
+          onSearchTextChange={ this.atualizaState }
+          bookmarkedOnly={ bookmarkedOnly }
+          onBookmarkedChange={ this.atualizaState }
+          selectedGenre={ selectedGenre }
+          onSelectedGenreChange={ this.atualizaState }
+        />
+        <AddMovie onClick={ this.buttonAddMovie } />
+        <MovieList movies={ movies } />
+      </div>
+    );
+  }
 }
 
 MovieLibrary.propTypes = {

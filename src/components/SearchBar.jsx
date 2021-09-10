@@ -4,19 +4,21 @@ import InputText from './Inputs/InputText';
 import InputSelect from './Inputs/InputSelect';
 
 class SearchBar extends React.Component {
-  // eslint-disable-next-line max-lines-per-function
   render() {
     const id = 'select-option';
+
     const options = [{ data: id, value: '', text: 'Todos' },
       { data: id, value: 'action', text: 'Ação' },
       { data: id, value: 'comedy', text: 'Comédia' },
       { data: id, value: 'thriller', text: 'Suspense' }];
+
     const { searchText,
       onSearchTextChange,
       bookmarkedOnly,
       onBookmarkedChange,
       selectedGenre,
       onSelectedGenreChange } = this.props;
+
     return (
       <form data-testid="search-bar-form">
         <InputText
@@ -48,7 +50,6 @@ class SearchBar extends React.Component {
           options={ options }
         />
       </form>
-
     );
   }
 }
