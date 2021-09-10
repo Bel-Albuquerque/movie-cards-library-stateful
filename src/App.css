@@ -81,3 +81,50 @@ body {
   justify-content: flex-end;
   padding: 12px 20px;
 }
+
+fieldset {
+  padding-top: 20px;
+  padding-left: 25px;
+}
+
+#search-bar-form {
+  display: flex;
+  justify-content: space-between;
+  max-width: 800px;
+}
+
+label {
+  margin-left: 20px;
+}
+
+input {
+  border: solid 1px rgb(216, 215, 215);
+  margin-left: 15px;
+  border-radius: 3px;
+}
+
+#checkbox-input {
+  border: solid 1px rgb(241, 238, 238);
+
+  margin-right: 10px;
+  width: 15px;
+  height: 15px;
+}
+
+#select-input {
+  border: solid 1px whitesmoke;
+  background-color: rgb(255, 255, 255);
+  border-radius: 3px;
+  color: #343a40;
+}
+
+.addMovieForm {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  
+}
+
+#rating {
+  width: 50px;
+}

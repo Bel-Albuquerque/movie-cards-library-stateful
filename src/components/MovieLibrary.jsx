@@ -19,14 +19,12 @@ class MovieLibrary extends Component {
   atualizaEstado = ({ target }) => {
     const { name } = target;
     const value = (target.type === 'checkbox') ? target.checked : target.value;
-    this.setState({
-      [name]: value,
-    });
+    this.setState({ [name]: value });
     this.filtraTeste(target, value);
   }
 
   filtraTeste = (target, value) => {
-    const { movies } = this.state;
+    const { movies } = this.props;
     this.condicaoFiltratext(target, value);
     this.condicaoFiltraSelect(target, value);
     this.condicaoFiltraBoolean(target, value);
@@ -73,10 +71,7 @@ class MovieLibrary extends Component {
 
     buttonAddMovie = (newMovie) => {
       const { movies } = this.state;
-      const array = [];
-
-      movies.forEach((movie) => array.push(movie));
-      array.push(newMovie);
+      const array = [...movies, newMovie];
       this.setState({ movies: array });
     }
 

@@ -1,8 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import InputText from './Inputs/InputText';
+import InputSelect from './Inputs/InputSelect';
 
 class SearchBar extends React.Component {
+  // eslint-disable-next-line max-lines-per-function
   render() {
+    const id = 'select-option';
+    const options = [{ data: id, value: '', text: 'Todos' },
+      { data: id, value: 'action', text: 'Ação' },
+      { data: id, value: 'comedy', text: 'Comédia' },
+      { data: id, value: 'thriller', text: 'Suspense' }];
     const { searchText,
       onSearchTextChange,
       bookmarkedOnly,
@@ -11,16 +19,14 @@ class SearchBar extends React.Component {
       onSelectedGenreChange } = this.props;
     return (
       <form data-testid="search-bar-form">
-        <label htmlFor="text-input" data-testid="text-input-label">
-          Inclui o texto:
-          <input
-            data-testid="text-input"
-            type="text"
-            name="searchText"
-            value={ searchText }
-            onChange={ onSearchTextChange }
-          />
-        </label>
+        <InputText
+          label="text-input-label"
+          labelText="Inclui o texto:"
+          value={ searchText }
+          Name="searchText"
+          dataTest="text-input"
+          func={ onSearchTextChange }
+        />
         <label htmlFor="checkbox-input" data-testid="checkbox-input-label">
           <input
             data-testid="checkbox-input"
@@ -31,20 +37,16 @@ class SearchBar extends React.Component {
           />
           Mostrar somente favoritos
         </label>
-        <label htmlFor="select-input-label" data-testid="select-input-label">
-          Filtrar por gênero
-          <select
-            data-testid="select-input"
-            name="selectedGenre"
-            value={ selectedGenre }
-            onChange={ onSelectedGenreChange }
-          >
-            <option data-testid="select-option" value="">Todos</option>
-            <option data-testid="select-option" value="action">Ação</option>
-            <option data-testid="select-option" value="comedy">Comédia</option>
-            <option data-testid="select-option" value="thriller">Suspense</option>
-          </select>
-        </label>
+        <InputSelect
+          label="select-input-label"
+          labelText="Filtrar por gênero"
+          dataTest="select-input"
+          name="selectedGenre"
+          value={ selectedGenre }
+          onChange={ onSelectedGenreChange }
+          dataTestOption="select-option"
+          options={ options }
+        />
       </form>
 
     );

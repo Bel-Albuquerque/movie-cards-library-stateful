@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import JuntaInputs from './JuntaInputs';
-import InputNumber from './InputNumber';
+import JuntaInputs from './Inputs/JuntaInputs';
+import InputNumber from './Inputs/InputNumber';
+import InputSelect from './Inputs/InputSelect';
 
 class AddMovie extends React.Component {
   constructor() {
@@ -46,7 +47,10 @@ class AddMovie extends React.Component {
   render() {
     const { onClick } = this.props;
     const { subtitle, title, imagePath, storyline, rating, genre } = this.state;
-
+    const id = 'genre-option';
+    const options = [{ data: id, value: 'action', text: 'Ação' },
+      { data: id, value: 'comedy', text: 'Comédia' },
+      { data: id, value: 'thriller', text: 'Suspense' }];
     return (
       <form data-testid="add-movie-form">
         <JuntaInputs
@@ -65,22 +69,16 @@ class AddMovie extends React.Component {
           type="number"
           func={ this.atualizaEstado }
         />
-        <label
-          htmlFor="genre-input-label"
-          data-testid="genre-input-label"
-        >
-          Gênero
-          <select
-            data-testid="genre-input"
-            name="genre"
-            value={ genre }
-            onChange={ this.atualizaEstado }
-          >
-            <option data-testid="genre-option" value="action">Ação</option>
-            <option data-testid="genre-option" value="comedy">Comédia</option>
-            <option data-testid="genre-option" value="thriller">Suspense</option>
-          </select>
-        </label>
+        <InputSelect
+          label="genre-input-label"
+          labelText="Gênero"
+          dataTest="genre-input"
+          name="genre"
+          value={ genre }
+          onChange={ this.atualizaEstado }
+          dataTestOption="genre-option"
+          options={ options }
+        />
         <button
           type="submit"
           data-testid="send-button"

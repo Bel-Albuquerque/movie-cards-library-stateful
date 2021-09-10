@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import InputText from './InputText';
+import TextArea from './TextArea';
 
 class JuntaInputs extends React.Component {
   render() {
@@ -31,20 +32,14 @@ class JuntaInputs extends React.Component {
           dataTest="image-input"
           func={ funcao }
         />
-        <label
-          data-testid="storyline-input-label"
-          htmlFor="storyline-input-label"
-        >
-          Sinopse
-          <textarea
-            name="storyline"
-            data-testid="storyline-input"
-            onChange={ funcao }
-            value={ storyline }
-            cols="30"
-            rows="10"
-          />
-        </label>
+        <TextArea
+          dataFor="storyline-input-label"
+          labelText="Sinopse"
+          Name="storyline"
+          dataTest="storyline-input"
+          funcaoOnchenge={ funcao }
+          valueStoryline={ storyline }
+        />
       </>
     );
   }
